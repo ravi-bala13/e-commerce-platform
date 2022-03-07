@@ -7,7 +7,7 @@ function App() {
   return (
     <div>
       <Routes>
-        <Route path="/viewpage" element={<Viewpage />} />
+        <Route path="/" element={<Viewpage />} />
         <Route path="/cartpage" element={<Cartpage />} />
       </Routes>
     </div>
