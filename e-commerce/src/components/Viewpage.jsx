@@ -7,50 +7,65 @@ import { Link } from "react-router-dom";
 function Viewpage() {
   const [products, setProducts] = useState([]);
 
+  const [toshow, setToshow] = useState([]);
+
   const { handleCart, cart } = useContext(CartContext);
-  console.log("cart:", cart);
 
-  // const [page, setPage] = useState(1);
-  // console.log("page:", page);
+  const [page, setPage] = useState(1);
 
-  // const [start, setStart] = useState(20);
-  // console.log("start:", start);
+  const [start, setStart] = useState(0);
 
   useEffect(() => {
     getProducts();
   }, []);
 
+  useEffect(() => {
+    handleSlice();
+  }, [start]);
+
   const handlePagination = (value) => {
-    // setPage((p) => p + value);
-    // let tem = (page - 1) * 20;
-    // setStart(tem);
+    setPage((p) => p + value);
+
+    let tem = page * 20;
+    setStart(tem);
   };
 
   const getProducts = async () => {
     try {
       let res = await fetch("https://api.sampleapis.com/wines/reds");
       let data = await res.json();
-      // console.log("data:", data);
+
       setProducts(data);
+      setToshow(data.slice(start, start + 20));
     } catch (e) {
       console.log("error:", e);
     }
+  };
+
+  const handleSlice = () => {
+    setToshow(products.slice(start, start + 20));
   };
 
   return (
     <>
       <h1 className="heading">Jaguvar Wines</h1>
       <div className="page">
-        {/* <button onClick={() => handlePagination(-1)}> {"<Prev"} </button>
-        <button onClick={() => handlePagination(+1)}> {"Next>"} </button> */}
+        <button
+          disabled={page == 1 ? true : false}
+          onClick={() => handlePagination(-1)}
+        >
+          {" "}
+          {"<Prev"}{" "}
+        </button>
+        <button onClick={() => handlePagination(+1)}> {"Next>"} </button>
         <Link to={"/cartpage"}>
           <button>Cart</button>
         </Link>
       </div>
 
       <div className="all-products">
-        {products.map((e) =>
-          e.id <= 20 ? (
+        {toshow.map((e) =>
+          true ? (
             <div key={e.id}>
               <div className="details">
                 <img src={e.image} alt="" />

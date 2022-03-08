@@ -22,7 +22,9 @@ function Cartpage() {
                   <strong> {e.winery}</strong>{" "}
                 </p>
                 <p>{e.wine}</p>
-                <p>{`${e.rating.average} - ${e.rating.reviews}`}</p>
+                <p>{`Average :  ${e.rating.average}`}</p>
+                <p> {`Ratings : ${e.rating.reviews}`} </p>
+                <p> {e.location} </p>
               </div>
             </div>
           ))}

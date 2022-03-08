@@ -7,13 +7,8 @@ export const CartContextProvider = ({ children }) => {
   //   console.log("cart:", cart);
 
   const handleCart = (e) => {
-    // console.log("e:", e);
-    let tem = cart;
-    tem.push(e);
-    // console.log("tem:", tem);
-    setCart(tem);
+    setCart([...cart, e]);
     alert("Product added to cart successfully");
-    // console.log("cart:", cart);
   };
   return (
     <CartContext.Provider value={{ cart, handleCart }}>
