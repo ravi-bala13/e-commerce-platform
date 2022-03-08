@@ -1,25 +1,20 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import "./Viewpage.css";
+import CartContext from "../contexts/CartContext";
+import { Link } from "react-router-dom";
 
 function Viewpage() {
   const [products, setProducts] = useState([]);
 
-  const [cart, setCart] = useState([]);
+  const { handleCart, cart } = useContext(CartContext);
   console.log("cart:", cart);
 
-  const handleCart = (e) => {
-    console.log("e:", e);
-    let tem = cart;
-    tem.push(e);
-    setCart(tem);
-  };
+  // const [page, setPage] = useState(1);
+  // console.log("page:", page);
 
-  const [page, setPage] = useState(1);
-  console.log("page:", page);
-
-  const [start, setStart] = useState(20);
-  console.log("start:", start);
+  // const [start, setStart] = useState(20);
+  // console.log("start:", start);
 
   useEffect(() => {
     getProducts();
@@ -48,6 +43,9 @@ function Viewpage() {
       <div className="page">
         {/* <button onClick={() => handlePagination(-1)}> {"<Prev"} </button>
         <button onClick={() => handlePagination(+1)}> {"Next>"} </button> */}
+        <Link to={"/cartpage"}>
+          <button>Cart</button>
+        </Link>
       </div>
 
       <div className="all-products">
